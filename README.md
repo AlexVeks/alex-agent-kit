@@ -54,9 +54,3 @@ The mentor and `save-to-vault` use `C:\Users\alexvek\Documents\ObsidianVaults\we
 3. Ask `review-my-work` for findings, explanations, or a hint.
 4. Use `verify-my-work` to pick and run the smallest useful proof.
 5. Request a full solution only when you want a worked example, then read the explanation.
-
-## Origin
-
-Derived from `td-agentcraft-kit`, an autonomous multi-agent delivery kit. Removed because their purpose is to do the work for you: `code-workflow`, `implementer`, `planner`, `specialized-agent`, `delegate`, the Architect/Builder/Reviewer/Refactorer/Specifier/Investigator agents, `static-code-analysis`, `preflight`, `notify`, and `work-item-tracking`.
-
-Kept and rewritten for learning: evidence-based investigation (`debug-with-me`), proof of work (`verify-my-work`), requirement questioning (`plan-with-me`), and review standards (`review-my-work`).
