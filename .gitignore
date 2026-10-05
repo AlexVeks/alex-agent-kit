@@ -1,0 +1,14 @@
+# OpenCode-managed dependencies
+node_modules/
+/package.json
+/package-lock.json
+/bun.lock
+/bun.lockb
+
+# Machine-specific service configuration
+/service.json
+
+# Local environment files
+.env
+.env.*
+!.env.example
