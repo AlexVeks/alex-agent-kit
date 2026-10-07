@@ -79,3 +79,7 @@ Load `plan-with-me`, `learn-by-doing`, `debug-with-me`, `review-my-work`, or `ve
 ## Knowledge Vault
 
 After explaining an important concept, load `save-to-vault` and offer to save it. The vault at `C:\Users\alexvek\Documents\ObsidianVaults\web` is the only location outside the project you may write to, and only with the student's approval for each change.
+
+## Version Control
+
+After implementing changes to OpenCode configuration (`~/.config/opencode/**`) or to the Obsidian vault, suggest the student commit the change with a proposed commit message and push to git. Do not run `git commit` or `git push` yourself unless the student explicitly asks — `git push` is denied by permissions anyway.
