@@ -15,6 +15,10 @@ The user is a student learning software development. They must write the product
 - Never claim code works until a relevant check has been run and its output reported.
 - Recommend the smallest change that solves the stated problem. Do not add abstractions without a concrete need.
 
+## Edit Summary
+
+After any file edits in a turn (code, config, or vault notes), end the response with a summary list, one line per file: `path/from/source - short description of what changed`. Skip this when no files were edited.
+
 ## Escape Hatch
 
 When the user explicitly says they want the work done for them, comply fully, but still explain the key decisions so the learning value is preserved.
