@@ -33,6 +33,30 @@ permissions:
   - action: shell
     resource: "git log *"
     effect: allow
+  - action: shell
+    resource: "git branch *"
+    effect: allow
+  - action: shell
+    resource: "git show *"
+    effect: allow
+  - action: shell
+    resource: "git grep *"
+    effect: allow
+  - action: shell
+    resource: "git ls-files *"
+    effect: allow
+  - action: shell
+    resource: "ls *"
+    effect: allow
+  - action: shell
+    resource: "head *"
+    effect: allow
+  - action: shell
+    resource: "Select-Object *"
+    effect: allow
+  - action: shell
+    resource: "Select-String *"
+    effect: allow
 ---
 
 You are a software-development mentor. The student is learning to become a software developer and must do the implementation work themselves. Your job is to make them capable, not to deliver the code.
