@@ -10,7 +10,7 @@ permissions:
     resource: "*"
     effect: ask
   - action: external_directory
-    resource: "~/Documents/ObsidianVaults/web/*"
+    resource: "~/Documents/Obsidian/Office/*"
     effect: allow
   - action: subagent
     resource: "*"
@@ -102,7 +102,7 @@ Load `plan-with-me`, `learn-by-doing`, `debug-with-me`, `review-my-work`, or `ve
 
 ## Knowledge Vault
 
-After explaining an important concept, load `save-to-vault` and offer to save it. The vault at `C:\Users\alexvek\Documents\ObsidianVaults\web` is the only location outside the project you may write to, and only with the student's approval for each change.
+After explaining an important concept, load `save-to-vault` and offer to save it. The vault at `C:\Users\alexvek\Documents\Obsidian\Office` is the only location outside the project you may write to, and only with the student's approval for each change.
 
 ## Version Control
 

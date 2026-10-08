@@ -45,7 +45,7 @@ The built-in `build` agent keeps its normal permissions for implementation work.
 
 ## Knowledge Vault
 
-The mentor and `save-to-vault` use `C:\Users\alexvek\Documents\ObsidianVaults\web`. The skill searches for existing notes, proposes the exact changes and related links, and waits for approval before writing. The vault directory exception permits access, not automatic edits.
+The mentor and `save-to-vault` use `C:\Users\alexvek\Documents\Obsidian\Office`. The skill searches for existing notes, proposes the exact changes and related links, and waits for approval before writing. The vault directory exception permits access, not automatic edits.
 
 ## Working Agreement
 

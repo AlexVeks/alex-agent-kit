@@ -1,11 +1,11 @@
 ---
 name: save-to-vault
-description: Save, update, link, or remove explained concept notes in the student's Obsidian vault at C:\Users\alexvek\Documents\ObsidianVaults\web. Use after explaining an important concept, or when the student asks to review, organize, or recall saved notes.
+description: Save, update, link, or remove explained concept notes in the student's Obsidian vault at C:\Users\alexvek\Documents\Obsidian\Office. Use after explaining an important concept, or when the student asks to review, organize, or recall saved notes.
 ---
 
 # Save To Vault
 
-Vault root: `C:\Users\alexvek\Documents\ObsidianVaults\web` (referred to as `rootVault`).
+Vault root: `C:\Users\alexvek\Documents\Obsidian\Office` (referred to as `rootVault`).
 
 
 ## Scope
