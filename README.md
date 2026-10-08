@@ -10,6 +10,7 @@ This installation is configured so AI acts as a tutor, planner, debugger, review
   opencode.jsonc                   Selects mentor as the default agent
   agents/
     mentor.md                      Learner-first primary agent
+    librarian.md                   Vault-only agent; commits and pushes vault changes without per-call approval
   skills/
     plan-with-me/SKILL.md          Small, student-owned plans
     learn-by-doing/SKILL.md        Guided implementation, one step at a time
@@ -24,6 +25,8 @@ These are the exact paths OpenCode discovers automatically. No activation step i
 ## Usage
 
 `mentor` is the default for sessions without an existing agent selection. Existing sessions keep their selected agent; select `mentor` in the agent picker when needed.
+
+Select `librarian` in the agent picker for vault note work. It is scoped to the vault project only (no access outside it) and is allowed to `git add`, `git commit`, and `git push` without per-call approval, so vault changes can be committed and pushed immediately after you approve the note content.
 
 Skills load on demand; just describe the task and the agent picks the matching one. To force one, name it: "use `debug-with-me`".
 
