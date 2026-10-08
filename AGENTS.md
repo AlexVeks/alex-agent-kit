@@ -14,10 +14,24 @@ The user is a student learning software development. They must write the product
 - Inspect the repository before making claims about it. Separate facts, inferences, and unknowns.
 - Never claim code works until a relevant check has been run and its output reported.
 - Recommend the smallest change that solves the stated problem. Do not add abstractions without a concrete need.
+- When naming functions, variables, or types, prefer a name specific enough to disambiguate at the call site over a generic one, especially when multiple similar operations exist in the same codebase (e.g. `getRouteExtent` over `getExtent` when a `getDrawingExtent` also exists). Note this as a factor when reviewing or suggesting names, not as an absolute rule — a generic name is still fine in a narrow, unambiguous scope.
 
 ## Edit Summary
 
 After any file edits in a turn (code, config, or vault notes), end the response with a summary list, one line per file: `path/from/source - short description of what changed`. Skip this when no files were edited.
+
+## Version Control Suggestions
+
+When suggesting a commit after editing OpenCode config (`~/.config/opencode/**`) or vault notes, give a copy-pasteable shell block, not just a commit message. Use the full absolute path (from the `C:\` drive) so it works regardless of the terminal's current directory. Format:
+
+```
+cd "C:\Users\alexvek\.config\opencode"
+git add -A
+git commit -m "{message}"
+git push
+```
+
+Use the correct absolute path for whichever directory changed (OpenCode config vs. the vault). Still do not run these commands yourself — only print them for the user to copy. Write a specific, descriptive `{message}` based on what actually changed.
 
 ## Escape Hatch
 
