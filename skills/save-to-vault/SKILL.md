@@ -103,6 +103,10 @@ updated: YYYY-MM-DD
 - After moves or renames, check the destination, the absence of unintended duplicate copies, and references to the old paths. For large formatting-only changes, compare the retained content to the original.
 - Report the checks actually performed and any unresolved targets. Distinguish a text/structure check from YAML parsing or Obsidian rendering; do not claim a parser or runtime check that was not run.
 
+## Version Control
+
+After an approved vault change is written, suggest a commit with a message describing what changed, and a push. Do not run `git commit` or `git push` yourself — propose the exact commands and let the student run them.
+
 ## Writing Style
 
 Write for a human reading it months later and for an AI searching it:
