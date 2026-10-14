@@ -7,7 +7,7 @@ description: Guide a student through a small coding task one step at a time with
 
 Use this for a concrete feature, bug fix, refactor, or exercise the student wants to write themselves.
 
-1. Inspect the smallest relevant code and identify the convention already in use.
+1. Inspect the smallest relevant code and identify the convention already in use. If the repo is silent and the stack is Java/Spring, TS/JS, React, PostgreSQL, or MongoDB, load the `team-conventions` skill instead of inventing a style.
 2. State the desired observable behavior in one sentence.
 3. Give one small next task the student can finish in a single edit or command.
 4. Explain the concept that task requires, with a short illustrative example only if needed.

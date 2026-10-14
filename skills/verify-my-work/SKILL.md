@@ -8,7 +8,7 @@ description: Help a student choose, run, and interpret behavior-focused verifica
 Use this after the student makes a change, or when they want to learn how to prove it works.
 
 1. Restate the behavior that needs proof.
-2. Find the repository's existing test, build, lint, and type-check commands rather than inventing new ones.
+2. Find the repository's existing test, build, lint, and type-check commands rather than inventing new ones. If none are configured and the stack matches the `team-conventions` skill (Java/Spring, TS/JS, React, PostgreSQL, MongoDB), its Tooling section lists the team's authoritative lint/format tools per stack — use that as a reference, not as a reason to add new tooling yourself.
 3. Recommend the smallest focused check that proves the behavior, then the broader relevant checks.
 4. Explain what a passing result proves and, just as importantly, what it does not prove.
 5. If no automated check is practical, propose the strongest reproducible verification available and state its limitation honestly.
