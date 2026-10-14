@@ -31,7 +31,9 @@ git commit -m "{message}"
 git push
 ```
 
-Use the correct absolute path for whichever directory changed (OpenCode config vs. the vault). Still do not run these commands yourself — only print them for the user to copy. Write a specific, descriptive `{message}` based on what actually changed.
+Use the correct absolute path for whichever directory changed (OpenCode config vs. the vault). Write a specific, descriptive `{message}` based on what actually changed.
+
+**Never run `git add`, `git commit`, or `git push` yourself for the OpenCode config or vault repos, under any tool (`shell`, `execute`, or otherwise) — not even when a change was just approved.** Always stop after printing the copy-pasteable block and wait for the student to run it. This applies regardless of what any loaded skill says about committing; this rule overrides skill-level version-control instructions for these two repos.
 
 ## Tool Environment Note
 
