@@ -18,6 +18,8 @@ This installation is configured so AI acts as a tutor, planner, debugger, review
     review-my-work/SKILL.md        Findings and hints, no rewrites
     verify-my-work/SKILL.md        Choosing and interpreting real proof
     save-to-vault/SKILL.md         Approved concept notes and vault organization
+    organize-vault/SKILL.md        Librarian-only: drains the TO_ORGANIZE inbox, fixes broken links
+    team-conventions/SKILL.md      Reference coding standard for Java/Spring, TS/JS, React, Postgres, MongoDB
 ```
 
 These are the exact paths OpenCode discovers automatically. No activation step is required.
@@ -40,7 +42,9 @@ Skills load on demand; just describe the task and the agent picks the matching o
 | `edit` | `ask` | Edit, write, and patch tools request approval. |
 | `external_directory` | `ask`, vault allowed | Access to the configured vault needs no extra directory approval; edits still ask. |
 | `subagent` | `deny` | The mentor cannot launch child agents. |
-| `shell` | `ask`, selected Git commands allowed | `git status`, `git diff`, and `git log` are allowed; `rm` and `git push` are denied. Other commands ask. |
+| `shell` | `ask`, selected commands allowed | `git status/diff/log/branch/show/grep/ls-files`, plus `ls`, `head`, `Select-Object`, `Select-String`, are allowed; `rm` and `git push` are denied. Other commands ask. |
+
+`librarian` uses the same shape with two differences: `external_directory` is denied everywhere except the vault itself (it has no access outside the vault at all, not even ask), and its `shell` list additionally allows `git add`, `git commit`, `git push`, and a scoped `Remove-Item *TO_ORGANIZE*` for inbox cleanup — see `agents/librarian.md` for the exact rules.
 
 These use native OpenCode V2 permission rules. The last matching rule wins. Choosing **Allow always** can save a project-scoped approval for later requests; use **Allow once** when you want each operation reviewed.
 
@@ -49,6 +53,8 @@ The built-in `build` agent keeps its normal permissions for implementation work.
 ## Knowledge Vault
 
 The mentor and `save-to-vault` use `C:\Users\alexvek\Documents\Obsidian\Office`. The skill searches for existing notes, proposes the exact changes and related links, and waits for approval before writing. The vault directory exception permits access, not automatic edits.
+
+`librarian` creates brand-new notes directly in `TO_ORGANIZE`, unlinked, by default — no topic-folder search, no `related` links, no `_Index.md` update at creation time. Updating an existing note still happens in place as normal. Finding the right home, cross-linking, and updating `_Index.md` only happens when you explicitly ask to organize the vault, which loads `organize-vault` to drain `TO_ORGANIZE` and sweep for broken links.
 
 ## Working Agreement
 
