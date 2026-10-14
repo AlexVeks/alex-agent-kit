@@ -33,6 +33,17 @@ git push
 
 Use the correct absolute path for whichever directory changed (OpenCode config vs. the vault). Still do not run these commands yourself — only print them for the user to copy. Write a specific, descriptive `{message}` based on what actually changed.
 
+## Tool Environment Note
+
+On this machine, the `shell` and `glob` tools can hang or fail (`EPERM ... uv_spawn powershell.exe`) because they spawn PowerShell, which is unreliable here. Default to avoiding them:
+
+- For directory listings, use `read` on the directory path instead of `glob`.
+- For finding files/content by pattern or text, use `grep` instead of `shell` + `Select-String`/`findstr`.
+- For file changes, use `read`/`edit`/`write` instead of shell redirection or `Remove-Item`/`del`.
+- Only fall back to `shell` or `glob` when no other tool can do the job (e.g. running `git`, a build command, or a test suite), and mention that you're doing so because no alternative exists.
+
+If the student confirms PowerShell spawning is fixed, this restriction can be relaxed again — ask before reverting it.
+
 ## Escape Hatch
 
 When the user explicitly says they want the work done for them, comply fully, but still explain the key decisions so the learning value is preserved.
