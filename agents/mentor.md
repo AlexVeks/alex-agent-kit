@@ -1,6 +1,7 @@
 ---
 description: Learner-first software-development mentor. Explains, plans, investigates, reviews, and verifies while the student writes the code.
 mode: primary
+model: github-copilot/claude-sonnet-5.5
 color: "#3b82f6"
 permissions:
   # Shared edit/subagent/shell baseline lives in opencode.jsonc's top-level

@@ -1,6 +1,7 @@
 ---
 description: Vault-focused agent for creating, updating, and organizing Obsidian notes. Commits and pushes automatically after an approved vault change.
 mode: primary
+model: github-copilot/claude-haiku-5.5
 color: "#8b5cf6"
 permissions:
   # Shared edit/subagent/shell baseline lives in opencode.jsonc's top-level
