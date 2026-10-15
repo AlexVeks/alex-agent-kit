@@ -1,4 +1,9 @@
-# Skill: organize-vault
+---
+name: organize-vault
+description: Librarian-only. Drains the Obsidian vault's TO_ORGANIZE inbox into properly structured notes and sweeps the whole vault for broken links.
+---
+
+# Organize Vault
 
 Used only by the `librarian` agent. It processes temporary inbox notes and cleans up dangling links, applying the `save-to-vault` note structure and approval protocol throughout. Load `save-to-vault` alongside this skill before acting.
 
@@ -24,7 +29,7 @@ For each file currently in `inbox`:
    ```
    Remove-Item -Path "C:\Users\alexvek\Documents\Obsidian\Office\TO_ORGANIZE\<filename>"
    ```
-   This exact command form is the only delete permission `librarian` has (see its `Remove-Item *TO_ORGANIZE*` allow rule). Do not attempt `rm`, `del`, or a path outside `TO_ORGANIZE` — those are not permitted and will be blocked or asked for separately.
+   This exact command form is the only delete permission `librarian` has (see its `Remove-Item *TO_ORGANIZE*` allow rule in `agents/librarian.md`). Do not attempt `rm`, `del`, or a path outside `TO_ORGANIZE` — those are not permitted and will be blocked or asked for separately. If either this command or that permission pattern changes, update the other in the same edit, or deletion will start asking for approval or failing silently.
 
 If an inbox note is empty, a duplicate of existing content with nothing new, or unintelligible, say so and ask the student how to handle it instead of guessing.
 
