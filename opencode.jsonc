@@ -1,6 +1,26 @@
 {
   "$schema": "https://opencode.ai/config.json",
   "default_agent": "mentor",
+  // Shared across every agent (including hidden built-ins build/plan/general,
+  // per AGENTS.md). Agent-specific permissions in agents/*.md are appended
+  // after these and win on conflict (e.g. git push differs per agent).
+  "permissions": [
+    { "action": "edit", "resource": "*", "effect": "ask" },
+    { "action": "subagent", "resource": "*", "effect": "deny" },
+    { "action": "shell", "resource": "*", "effect": "ask" },
+    { "action": "shell", "resource": "rm *", "effect": "deny" },
+    { "action": "shell", "resource": "git status *", "effect": "allow" },
+    { "action": "shell", "resource": "git diff *", "effect": "allow" },
+    { "action": "shell", "resource": "git log *", "effect": "allow" },
+    { "action": "shell", "resource": "git branch *", "effect": "allow" },
+    { "action": "shell", "resource": "git show *", "effect": "allow" },
+    { "action": "shell", "resource": "git grep *", "effect": "allow" },
+    { "action": "shell", "resource": "git ls-files *", "effect": "allow" },
+    { "action": "shell", "resource": "ls *", "effect": "allow" },
+    { "action": "shell", "resource": "head *", "effect": "allow" },
+    { "action": "shell", "resource": "Select-Object *", "effect": "allow" },
+    { "action": "shell", "resource": "Select-String *", "effect": "allow" }
+  ],
   "agents": {
     "plan": { "hidden": true },
     "build": { "hidden": true }

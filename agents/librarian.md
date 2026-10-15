@@ -3,20 +3,10 @@ description: Vault-focused agent for creating, updating, and organizing Obsidian
 mode: primary
 color: "#8b5cf6"
 permissions:
-  - action: edit
-    resource: "*"
-    effect: ask
+  # Shared edit/subagent/shell baseline lives in opencode.jsonc's top-level
+  # `permissions`. Only librarian-specific rules are listed here.
   - action: external_directory
     resource: "*"
-    effect: deny
-  - action: subagent
-    resource: "*"
-    effect: deny
-  - action: shell
-    resource: "*"
-    effect: ask
-  - action: shell
-    resource: "rm *"
     effect: deny
   - action: shell
     resource: "Remove-Item *TO_ORGANIZE*"
@@ -29,39 +19,6 @@ permissions:
     effect: allow
   - action: shell
     resource: "git push *"
-    effect: allow
-  - action: shell
-    resource: "git status *"
-    effect: allow
-  - action: shell
-    resource: "git diff *"
-    effect: allow
-  - action: shell
-    resource: "git log *"
-    effect: allow
-  - action: shell
-    resource: "git branch *"
-    effect: allow
-  - action: shell
-    resource: "git show *"
-    effect: allow
-  - action: shell
-    resource: "git grep *"
-    effect: allow
-  - action: shell
-    resource: "git ls-files *"
-    effect: allow
-  - action: shell
-    resource: "ls *"
-    effect: allow
-  - action: shell
-    resource: "head *"
-    effect: allow
-  - action: shell
-    resource: "Select-Object *"
-    effect: allow
-  - action: shell
-    resource: "Select-String *"
     effect: allow
 ---
 
