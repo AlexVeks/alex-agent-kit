@@ -1,11 +1,11 @@
 ---
 name: organize-vault
-description: Librarian-only. Drains the Obsidian vault's TO_ORGANIZE inbox into properly structured notes and sweeps the whole vault for broken links.
+description: Drains the Obsidian vault's TO_ORGANIZE inbox into properly structured notes and sweeps the whole vault for broken links.
 ---
 
 # Organize Vault
 
-Used only by the `librarian` agent. It processes temporary inbox notes and cleans up dangling links, applying the `save-to-vault` note structure and approval protocol throughout. Load `save-to-vault` alongside this skill before acting.
+Used by the `mentor` agent when the student asks to organize the vault. It processes temporary inbox notes and cleans up dangling links, applying the `save-to-vault` note structure and approval protocol throughout. Load `save-to-vault` alongside this skill before acting.
 
 ## Scope
 
@@ -29,7 +29,7 @@ For each file currently in `inbox`:
    ```
    Remove-Item -Path "C:\Users\alexvek\Documents\Obsidian\Office\TO_ORGANIZE\<filename>"
    ```
-   This exact command form is the only delete permission `librarian` has (see its `Remove-Item *TO_ORGANIZE*` allow rule in `agents/librarian.md`). Do not attempt `rm`, `del`, or a path outside `TO_ORGANIZE` — those are not permitted and will be blocked or asked for separately. If either this command or that permission pattern changes, update the other in the same edit, or deletion will start asking for approval or failing silently.
+   This exact command form is the only delete permission granted for this work (see the `Remove-Item *TO_ORGANIZE*` allow rule in `agents/mentor.md`). Do not attempt `rm`, `del`, or a path outside `TO_ORGANIZE` — those are not permitted and will be blocked or asked for separately. If either this command or that permission pattern changes, update the other in the same edit, or deletion will start asking for approval or failing silently.
 
 If an inbox note is empty, a duplicate of existing content with nothing new, or unintelligible, say so and ask the student how to handle it instead of guessing.
 
@@ -51,4 +51,4 @@ Run `save-to-vault`'s own verification checklist (valid YAML, resolving links, b
 
 ## Version Control
 
-`librarian` already auto-commits and pushes after an approved vault change (see its agent definition) — this skill does not need a separate version-control step. Still show the commit message in chat before running it, covering all the changes made in this run (inbox drains, deletions, and link cleanup can be one commit if done in one session, or several if done across separate approvals).
+Do not run `git add`, `git commit`, or `git push` yourself. After the run, suggest one commit message covering all changes made (inbox drains, deletions, and link cleanup can be one commit if done in one session) and give the copy-pasteable block from `AGENTS.md` for the student to run.

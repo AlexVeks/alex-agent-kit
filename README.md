@@ -9,8 +9,7 @@ This installation is configured so AI acts as a tutor, planner, debugger, review
   AGENTS.md                        Global rules applied to every agent
   opencode.jsonc                   Selects mentor as the default agent
   agents/
-    mentor.md                      Learner-first primary agent
-    librarian.md                   Vault-only agent; commits and pushes vault changes without per-call approval
+    mentor.md                      Learner-first primary agent; also maintains the Obsidian vault
   skills/
     plan-with-me/SKILL.md          Small, student-owned plans
     learn-by-doing/SKILL.md        Guided implementation, one step at a time
@@ -18,7 +17,7 @@ This installation is configured so AI acts as a tutor, planner, debugger, review
     review-my-work/SKILL.md        Findings and hints, no rewrites
     verify-my-work/SKILL.md        Choosing and interpreting real proof
     save-to-vault/SKILL.md         Approved concept notes and vault organization
-    organize-vault/SKILL.md        Librarian-only: drains the TO_ORGANIZE inbox, fixes broken links
+    organize-vault/SKILL.md        Drains the TO_ORGANIZE inbox, fixes broken links
     team-conventions/SKILL.md      Reference coding standard for Java/Spring, TS/JS, React, Postgres, MongoDB
 ```
 
@@ -27,8 +26,6 @@ These are the exact paths OpenCode discovers automatically. No activation step i
 ## Usage
 
 `mentor` is the default for sessions without an existing agent selection. Existing sessions keep their selected agent; select `mentor` in the agent picker when needed.
-
-Select `librarian` in the agent picker for vault note work. It is scoped to the vault project only (no access outside it) and is allowed to `git add`, `git commit`, and `git push` without per-call approval, so vault changes can be committed and pushed immediately after you approve the note content.
 
 Skills load on demand; just describe the task and the agent picks the matching one. To force one, name it: "use `debug-with-me`".
 
@@ -43,12 +40,13 @@ Skills load on demand; just describe the task and the agent picks the matching o
 | `subagent` | `deny` | No agent can launch child agents. |
 | `shell` | `ask`, selected commands allowed | `git status/diff/log/branch/show/grep/ls-files`, plus `ls`, `head`, `Select-Object`, `Select-String`, are allowed; `rm` is denied. Other commands ask. |
 
-`agents/mentor.md` and `agents/librarian.md` only list what differs from that baseline:
+`agents/mentor.md` only lists what differs from that baseline:
 
-- `mentor`: `external_directory` asks everywhere except the vault (allowed there, edits still ask); `git push` is denied.
-- `librarian`: `external_directory` is denied everywhere (no access outside the vault at all, not even ask); `git add`, `git commit`, `git push`, and a scoped `Remove-Item *TO_ORGANIZE*` are allowed for inbox cleanup.
+- `external_directory` asks everywhere except the vault (allowed there, edits still ask).
+- `git push` is denied; you run git commands yourself.
+- A scoped `Remove-Item *TO_ORGANIZE*` is allowed for inbox cleanup.
 
-See `agents/mentor.md` and `agents/librarian.md` for the exact rules.
+See `agents/mentor.md` for the exact rules.
 
 These use native OpenCode V2 permission rules. The last matching rule wins. Choosing **Allow always** can save a project-scoped approval for later requests; use **Allow once** when you want each operation reviewed.
 
@@ -58,7 +56,7 @@ The built-in `build` agent keeps its normal permissions for implementation work.
 
 The mentor and `save-to-vault` use `C:\Users\alexvek\Documents\Obsidian\Office`. The skill searches for existing notes, proposes the exact changes and related links, and waits for approval before writing. The vault directory exception permits access, not automatic edits.
 
-`librarian` creates brand-new notes directly in `TO_ORGANIZE`, unlinked, by default — no topic-folder search, no `related` links, no `_Index.md` update at creation time. Updating an existing note still happens in place as normal. Finding the right home, cross-linking, and updating `_Index.md` only happens when you explicitly ask to organize the vault, which loads `organize-vault` to drain `TO_ORGANIZE` and sweep for broken links.
+The mentor creates brand-new notes directly in `TO_ORGANIZE`, unlinked, by default — no topic-folder search, no `related` links, no `_Index.md` update at creation time. Updating an existing note still happens in place as normal. Finding the right home, cross-linking, and updating `_Index.md` only happens when you explicitly ask to organize the vault, which loads `organize-vault` to drain `TO_ORGANIZE` and sweep for broken links.
 
 ## Validating The Kit
 
