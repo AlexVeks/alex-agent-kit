@@ -1,6 +1,6 @@
 ---
 name: organize-vault
-description: Drains the Obsidian vault's TO_ORGANIZE inbox into properly structured notes and sweeps the whole vault for broken links.
+description: Drains the Obsidian vault's TO_ORGANIZE inbox into properly structured notes and sweeps the whole vault for broken links, and reports Excalidraw drawings that no note links to.
 ---
 
 # Organize Vault
@@ -44,6 +44,16 @@ If an inbox note is empty, a duplicate of existing content with nothing new, or 
 ## Part 3 — `_Index.md` specifically
 
 `_Index.md` entries are typically `- [[Note Name]] — description` or similar. Treat it as covered by Part 2's scan, but double check explicitly: for every link in `_Index.md`, verify the target note exists. If not, remove that entire index line (link + description together), not just the link syntax, since a dangling description with no link is equally useless. Include these in the same batch list and approval as Part 2 — don't ask twice.
+
+## Part 4 — Orphan Excalidraw drawings (always run)
+
+Always check the `Excalidraw` folder, every run, even when the inbox is empty and no broken links were found.
+
+1. List every drawing file in `C:\Users\alexvek\Documents\Obsidian\Office\Excalidraw` (`*.excalidraw.md`). Use `read` on the folder if `glob` fails.
+2. For each drawing, check whether any note in the vault links to or embeds it, e.g. `[[Name]]`, `![[Name]]`, `[[Name.excalidraw]]`, or `[[Name|Label]]`. Search all notes outside `Excalidraw`; if `grep` fails, read the notes directly. A drawing's own file does not count as a link.
+3. Also scan each drawing's readable "Text Elements" section for broken note links, and say that the compressed drawing data cannot be checked.
+4. Report a list of orphan drawings (drawings no note links to) and state which notes were checked. If there are none, say so explicitly.
+5. Report only. Do not delete, move, or link drawings without a separate approval from the student. Offer to add an embed in a suitable note, following the `save-to-vault` approval protocol.
 
 ## After Writing
 
