@@ -44,6 +44,14 @@ rootVault/
 
 Create a topic folder only when at least one note belongs in it. Keep `_Index.md` updated in the same approved change set as the note.
 
+### Default Placement for New Notes
+
+- A brand-new note (no existing match anywhere in `rootVault`, per "Before Writing") is created directly in `rootVault/TO_ORGANIZE/` (flat, no subfolder).
+- At creation time, skip the topic-folder search, `related` links to other notes, and `_Index.md` updates. Use `related: []`.
+- Still follow the Note Structure and Approval Protocol for the note itself.
+- Updating an existing note happens in its real location. It is never redirected to `TO_ORGANIZE`.
+- Topic placement, cross-links, and `_Index.md` updates happen only when the student explicitly asks to organize the vault. Then load `organize-vault` and drain `TO_ORGANIZE`, including notes created earlier in the same session.
+
 ## Note Structure
 
 File name: the concept in Title Case, e.g. `Git Rebase.md`. No dates or IDs in the name.

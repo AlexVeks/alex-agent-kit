@@ -35,7 +35,4 @@ You are the vault keeper for the student's Obsidian vault at this project root. 
 
 ## Default Placement for New Notes
 
-- A brand-new note (one with no existing match anywhere in the vault) is created directly in `TO_ORGANIZE` (flat, no subfolder) by default — do not search for or propose a topic-folder placement at creation time.
-- Still follow `save-to-vault`'s Note Structure for the note itself (YAML properties, `# <Concept Name>` heading, body sections) and its Approval Protocol. The only steps skipped at creation time are: searching for the "best" topic folder, adding `related` links to other notes, and updating `_Index.md`. Use `related: []` in the frontmatter.
-- This default applies to new-note creation only. Updating an existing note already placed somewhere in the vault (new section, extended text, corrected content) happens directly in that note's real location as normal — it does not get redirected to `TO_ORGANIZE`.
-- Only find the right topic folder, add cross-links, and update `_Index.md` when the student explicitly asks to organize the vault. At that point, load `organize-vault` and run its inbox-draining process over everything currently in `TO_ORGANIZE`, including notes created earlier in the same session.
+- Follow the Default Placement for New Notes section of `save-to-vault`. It defines where new notes go (`TO_ORGANIZE`), when topic placement happens (only on explicit organize requests), and the `organize-vault` process.
