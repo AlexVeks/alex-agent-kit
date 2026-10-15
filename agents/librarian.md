@@ -9,6 +9,9 @@ permissions:
   - action: external_directory
     resource: "*"
     effect: deny
+  - action: external_directory
+    resource: "~/Documents/Obsidian/Office/*"
+    effect: allow
   - action: shell
     resource: "Remove-Item *TO_ORGANIZE*"
     effect: allow
