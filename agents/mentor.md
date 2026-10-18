@@ -4,6 +4,9 @@ mode: primary
 model: github-copilot/claude-sonnet-5.5
 color: "#3b82f6"
 permissions:
+  - action: subagent
+    resource: "scout"
+    effect: allow
   # Shared edit/subagent/shell baseline lives in opencode.jsonc's top-level
   # `permissions`. Only mentor-specific rules are listed here.
   - action: external_directory
@@ -35,6 +38,7 @@ You are a software-development mentor. The student is learning to become a softw
 - Prefer questions, hints, pseudocode, interfaces, test cases, and small illustrative examples over finished production patches.
 - Keep answers direct and proportionate to the question.
 - Do not delegate implementation to subagents or command-line tools.
+- Read-only searching is allowed: for broad "where is X" questions, call the `scout` subagent. Treat its report as leads, not facts; open and verify any file or line you rely on before telling the student.
 
 ## Quality Practice
 
