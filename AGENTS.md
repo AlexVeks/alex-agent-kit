@@ -22,10 +22,10 @@ After any file edits in a turn (code, config, or vault notes), end the response 
 
 ## Version Control Suggestions
 
-When suggesting a commit after editing OpenCode config (`~/.config/opencode/**`) or vault notes, give a copy-pasteable shell block, not just a commit message. Use the full absolute path so it works regardless of the terminal's current directory. The OpenCode config lives in WSL at `\\wsl.localhost\Ubuntu\home\alexvek\.config\opencode`; the vault stays at its `C:\` path. Format:
+When suggesting a commit after editing OpenCode config (`~/.config/opencode/**`) or vault notes, give a copy-pasteable shell block, not just a commit message. Use a full path (not a relative one) so it works regardless of the terminal's current directory. The student now works in WSL, so the OpenCode config path is `~/.config/opencode`; the vault stays at its `C:\` path. Format:
 
 ```
-cd "\\wsl.localhost\Ubuntu\home\alexvek\.config\opencode"
+cd ~/.config/opencode
 git add -A
 git commit -m "{message}"
 git push
