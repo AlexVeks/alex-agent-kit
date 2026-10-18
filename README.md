@@ -10,6 +10,7 @@ This installation is configured so AI acts as a tutor, planner, debugger, review
   opencode.jsonc                   Selects mentor as the default agent
   agents/
     mentor.md                      Learner-first primary agent; also maintains the Obsidian vault
+    scout.md                       Read-only search subagent (Haiku); mentor verifies its reports
   skills/
     plan-with-me/SKILL.md          Small, student-owned plans
     learn-by-doing/SKILL.md        Guided implementation, one step at a time
