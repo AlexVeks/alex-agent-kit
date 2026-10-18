@@ -57,7 +57,7 @@ Always check the `Excalidraw` folder, every run, even when the inbox is empty an
 
 ## After Writing
 
-Run `save-to-vault`'s own verification checklist (valid YAML, resolving links, balanced fences, index agreement) on every note touched in Part 1, and re-check that no new broken links were introduced in Part 2/3 edits themselves.
+Run the verification checklist in `save-to-vault/references/maintenance.md` (valid YAML, resolving links, balanced fences, index agreement) on every note touched in Part 1, and re-check that no new broken links were introduced in Part 2/3 edits themselves.
 
 ## Version Control
 

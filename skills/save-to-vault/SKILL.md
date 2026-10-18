@@ -5,58 +5,42 @@ description: Save, update, link, or remove explained concept notes in the studen
 
 # Save To Vault
 
-Vault root: `C:\Users\alexvek\Documents\Obsidian\Office` (referred to as `rootVault`).
-
+Vault root: `C:\Users\alexvek\Documents\Obsidian\Office` (`rootVault`).
 
 ## Scope
 
 - Read and search anywhere inside `rootVault` freely.
-- Never write outside `rootVault` for vault work, even elsewhere in the Obsidian vault.
+- Never write outside `rootVault` for vault work.
 - Every create, edit, rename, move, or delete needs the student's explicit approval first.
-- Apply the note structure below to content notes and indexes. Agent instructions, `SKILL.md` files, plugin files, Canvas documents, and Bases have their own formats; do not convert them into concept notes during vault organization.
+- The note structure below applies to content notes and indexes. Agent instructions, `SKILL.md` files, plugin files, Canvas documents, and Bases have their own formats; do not convert them.
 
 ## Approval Protocol
 
 Before any change, show in chat:
 
 1. The action (create / update / rename / delete) and the exact file path.
-2. For create or update: the full proposed note content, or the exact diff for updates.
+2. For create or update: the full proposed content, or the exact diff for updates.
 3. Any links that will be added to other notes.
 
-Then ask "Save this?" and wait. Only one approval per listed change; if the plan changes, ask again. Deleting a note also requires listing every note that links to it, so links are not left broken.
+Then ask "Save this?" and wait. One approval per listed change; if the plan changes, ask again. Deleting a note also requires listing every note that links to it.
 
 ## Before Writing
 
 - Search `rootVault` for an existing note on the concept. Prefer updating it over creating a duplicate.
-- Find related notes to link to. Link only when the relationship is real.
-- Read the target note and the relevant part of `rootVault/_Index.md` before proposing edits. Use targeted searches rather than rereading the entire vault for a small update.
-- Inspect existing properties, headings, block IDs, and embeds before restructuring. Preserve references and useful content, including the note's language and task completion state.
-- For Obsidian-specific syntax, read [Obsidian Reference](references/obsidian.md). It covers aliases, heading/block links, embeds, callouts, and optional app-aware inspection.
+- Read the target note before proposing edits. Use targeted searches, not a full-vault reread.
+- Preserve existing properties, headings, block IDs, embeds, the note's language, and task completion state.
+- For Obsidian-specific syntax (aliases, heading/block links, embeds, callouts), read [Obsidian Reference](references/obsidian.md).
 
-## Folder Layout
+## Placement
 
-```text
-rootVault/
-  _Index.md              Map of all notes, grouped by topic
-  <Topic>/               One folder per broad topic (e.g. Git, Python, Testing)
-    <Concept Name>.md    One concept per note
-```
-
-Create a topic folder only when at least one note belongs in it. Keep `_Index.md` updated in the same approved change set as the note.
-
-### Default Placement for New Notes
-
-- A brand-new note (no existing match anywhere in `rootVault`, per "Before Writing") is created directly in `rootVault/TO_ORGANIZE/` (flat, no subfolder).
-- At creation time, skip the topic-folder search, `related` links to other notes, and `_Index.md` updates. Use `related: []`.
-- Still follow the Note Structure and Approval Protocol for the note itself.
-- Updating an existing note happens in its real location. It is never redirected to `TO_ORGANIZE`.
-- Topic placement, cross-links, and `_Index.md` updates happen only when the student explicitly asks to organize the vault. Then load `organize-vault` and drain `TO_ORGANIZE`, including notes created earlier in the same session.
+- A brand-new note (no existing match anywhere in `rootVault`) goes directly in `rootVault/TO_ORGANIZE/`, flat. Use `related: []`. Skip topic-folder search, cross-links, and `_Index.md` updates at creation time.
+- Updating an existing note happens in its real location, never in `TO_ORGANIZE`. When updating, link only to notes that really relate (see Linking).
+- Topic placement, cross-links, and `_Index.md` updates happen only when the student explicitly asks to organize the vault. Then load `organize-vault`.
+- Layout when organizing: `_Index.md` at the root, one `<Topic>/` folder per broad topic (created only when a note belongs in it), one concept per note. Keep `_Index.md` updated in the same approved change set.
 
 ## Note Structure
 
-File name: the concept in Title Case, e.g. `Git Rebase.md`. No dates or IDs in the name.
-
-Only the YAML properties and the main heading have a fixed structure. Put the properties at the very top, followed by one `# <Concept Name>` heading matching the file name. Use the property order shown below.
+File name: the concept in Title Case, e.g. `Git Rebase.md`. No dates or IDs.
 
 ```markdown
 ---
@@ -70,58 +54,33 @@ updated: YYYY-MM-DD
 # <Concept Name>
 
 ## <Descriptive Section Heading>
-<Content organized to suit this particular note.>
-
-## <Another Relevant Section Heading>
-<Further explanation, examples, steps, or reference material as needed.>
+<Content organized to suit this note.>
 ```
 
-- `related` replaces the `source` property. It is a YAML list of quoted Obsidian wikilinks to the existing notes this note links to. Use `related: []` when there are no linked notes; never save the example placeholder as a real link.
-- Keep related links at the top in the properties, not in a required `Related` section at the bottom. Inline links can also appear where they help explain a connection.
-- Preserve the original `created` date when updating a note; set `updated` to the date of the edit.
-- If an existing note has no recorded creation date, explain the basis of any proposed date. Filesystem creation time is an estimate of note age, not proof of its authoring date.
-- When migrating an existing note, preserve useful information from `source` in a suitable body section rather than discarding it.
-- Keep existing additional properties, such as `aliases`, `cssclasses`, `status`, or plugin metadata, after the four standard properties. Preserve their values and YAML types unless an approved change specifically modifies them. The approved migration of `source` into the body is the exception.
-- Choose tags that match the note's purpose; an index or task does not need the `concept` tag. Use YAML lists for `related`, `tags`, and `aliases`.
-- The body must be divided into clearly named sections, but their names, number, and order depend on the content. The example headings above are placeholders, not required headings.
-- Do not force every note into the same explanation, motivation, examples, mistakes, or review-question template. Include those sections only when they help that particular note.
+- Properties come first, in the order shown, followed by one `# <Concept Name>` heading matching the file name.
+- `related` is a YAML list of quoted wikilinks; use `related: []` when empty. Never save the example placeholder as a real link.
+- Keep `created` when updating; set `updated` to the edit date. If an existing note has no creation date, explain the basis of any proposed one (filesystem time is only an estimate).
+- Keep extra existing properties (`aliases`, `cssclasses`, `status`, plugin metadata) after the four standard ones, with values and types unchanged.
+- Legacy `source` property: move its useful content into a body section instead of discarding it.
+- Choose tags that fit the note (an index or task does not need `concept`). Use YAML lists for `related`, `tags`, `aliases`.
+- Section names, number, and order depend on the content. Do not force a fixed explanation/examples/mistakes/review template.
 
-## Linking Rules
+## Linking
 
-- Use `[[Concept Name]]` matching the file name without `.md`. When names collide, use the vault-relative path, such as `[[Architecture/Feature Flags]]`, to identify the target unambiguously. Use forward slashes in vault links.
-- Use wikilinks for vault notes and Markdown links for external URLs. Display labels, headings, and block references are supported; verify the target rather than treating the visible label as a filename.
-- Store each distinct linked note once in the top-level `related` property, with each wikilink quoted for valid YAML. Resolve links to their actual note before deduplicating; represent heading/block links and Markdown-note embeds with the containing note's canonical link.
-- Keep `related` in sync with actual note references in the body. Same-note navigation, attachment links/embeds, external URLs, and illustrative link syntax in code or comments do not belong in it. Do not add self-links or remove a meaningful existing relationship merely because it has no inline mention.
-- Add the backlink in the other note too, as part of the same approved change.
-- Put reciprocal links in the other note's top-level `related` property as well. Explain the relationship naturally in the body when it would not otherwise be clear.
+- Use `[[Concept Name]]` matching the file name; on name collisions use the vault-relative path (`[[Architecture/Feature Flags]]`, forward slashes). Use Markdown links for external URLs.
+- List each linked note once in `related`, resolved to its canonical note (heading/block links and embeds count as the containing note). Keep `related` in sync with real body references; do not add self-links, same-note links, attachments, or URLs, and do not drop a meaningful existing relationship just because it has no inline mention.
+- Add the reciprocal link in the other note's `related` in the same approved change.
 - Never link to a note that does not exist; propose creating it or leave it out.
 
-## Moves, Renames, and Heading Changes
+## Moves, Renames, and Verification
 
-- Find incoming references before a move or rename, including qualified wikilinks, Markdown links, embeds, and relevant Canvas or Bases file references. Include required reference updates and the index in the same proposed change set.
-- Check references to headings and block IDs before changing them. Preserve stable IDs and anchor text where possible; otherwise include dependent link updates in the proposal.
-- Preserve existing attachment targets and embed options such as image widths and PDF page selectors. Report pre-existing missing targets separately from any regressions caused by the edit.
-- Link-aware Obsidian operations can help with refactors when the app and CLI are available. They still require the same approved targets and edits; verify the actual affected references afterward.
-
-## Tools and Verification
-
-- Prefer the available read, search, and patch tools for ordinary filesystem work. Use Obsidian's CLI only when the task benefits from its live index or configured behavior, such as resolved backlinks, typed properties, or open tabs. Follow the capability probe and exact targeting rules in [Obsidian Reference](references/obsidian.md); CLI availability is optional.
-- After an approved change, check the affected notes for valid YAML, quoted link values, the four standard properties, preserved extra metadata, a single matching title, a sensible heading hierarchy, and balanced code fences. Account for fenced examples when inspecting headings or links.
-- Verify that note targets resolve unambiguously, referenced headings/block IDs exist, `related` entries are distinct, and reciprocal links and index entries agree. Validate attachment targets separately from note links.
-- After moves or renames, check the destination, the absence of unintended duplicate copies, and references to the old paths. For large formatting-only changes, compare the retained content to the original.
-- Report the checks actually performed and any unresolved targets. Distinguish a text/structure check from YAML parsing or Obsidian rendering; do not claim a parser or runtime check that was not run.
-
-## Version Control
-
-After an approved vault change is written, suggest a commit with a message describing what changed, and a push. Do not run `git commit` or `git push` yourself — propose the exact commands and let the student run them.
+For moves, renames, heading changes, and the post-write checklist, read [Maintenance](references/maintenance.md). After any approved write, run its checks and report only the checks actually performed.
 
 ## Writing Style
 
-Write for a human reading it months later and for an AI searching it:
+Write for a human reading months later and for an AI searching it.
 
-- Use plain language, descriptive section headings, and explicit concept names so the note is easy to skim and retrieve.
-- Keep paragraphs short and separate sections with whitespace. Use bullets for lists, numbered steps for procedures, tables for useful comparisons, and fenced code blocks for code.
-- Use a clear heading hierarchy (`#` for the title, `##` for sections, `###` for subsections); consistency means the same hierarchy, not identical section names across notes.
-- Choose formatting that suits the information. Avoid walls of text, unnecessary sections, decorative clutter, and chat filler.
-- Consider adding a Mermaid diagram (a ```` ```mermaid ```` fenced block) when the concept has structure that text alone explains poorly, such as a flow, sequence of steps, relationships between components, a state machine, or a hierarchy. Pick the simplest diagram type that fits (`flowchart`, `sequenceDiagram`, `stateDiagram-v2`, `classDiagram`, `erDiagram`). Skip it when the note is simple enough that a diagram would only repeat the text. Include the diagram in the proposed note content shown for approval, and only claim it renders after the student confirms it in Obsidian.
-- Use a short, optional callout for a useful takeaway or a collapsible detail when it improves readability. For long notes, consider a short set of same-note heading links for navigation rather than repeating the content.
+- Plain language, descriptive headings, explicit concept names, short paragraphs.
+- Bullets for lists, numbered steps for procedures, tables for comparisons, fenced blocks for code. Heading hierarchy: `#` title, `##` sections, `###` subsections.
+- Add a Mermaid diagram (simplest fitting type) only when structure is hard to explain in text. Show it in the proposed content, and claim it renders only after the student confirms in Obsidian.
+- Optional short callout for a key takeaway. Avoid walls of text, filler, and decoration.
