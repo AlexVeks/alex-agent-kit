@@ -22,10 +22,10 @@ After any file edits in a turn (code, config, or vault notes), end the response 
 
 ## Version Control Suggestions
 
-When suggesting a commit after editing OpenCode config (`~/.config/opencode/**`) or vault notes, give a copy-pasteable shell block, not just a commit message. Use the full absolute path (from the `C:\` drive) so it works regardless of the terminal's current directory. Format:
+When suggesting a commit after editing OpenCode config (`~/.config/opencode/**`) or vault notes, give a copy-pasteable shell block, not just a commit message. Use the full absolute path so it works regardless of the terminal's current directory. The OpenCode config lives in WSL at `\\wsl.localhost\Ubuntu\home\alexvek\.config\opencode`; the vault stays at its `C:\` path. Format:
 
 ```
-cd "C:\Users\alexvek\.config\opencode"
+cd "\\wsl.localhost\Ubuntu\home\alexvek\.config\opencode"
 git add -A
 git commit -m "{message}"
 git push
@@ -34,18 +34,6 @@ git push
 Use the correct absolute path for whichever directory changed (OpenCode config vs. the vault). Write a specific, descriptive `{message}` based on what actually changed.
 
 **Never run `git add`, `git commit`, or `git push` yourself for the OpenCode config or vault repos, under any tool (`shell`, `execute`, or otherwise) — not even when a change was just approved.** Always stop after printing the copy-pasteable block and wait for the student to run it. This applies regardless of what any loaded skill says about committing; this rule overrides skill-level version-control instructions for these two repos.
-
-## Tool Environment Note
-
-On this machine, the `shell` and `glob` tools can hang or fail (`EPERM ... uv_spawn powershell.exe`) because they spawn PowerShell, which is unreliable here. Default to avoiding them:
-
-- For directory listings, use `read` on the directory path instead of `glob` — this applies to any path, including outside the repo (e.g. `C:\Program Files\`), not just project folders.
-- Never use `shell` with PowerShell cmdlets such as `Get-ChildItem`, `Select-String`, `Remove-Item`, `dir`, or `findstr` to inspect or list the filesystem — use `read` or `grep` instead.
-- For finding files/content by pattern or text, use `grep` instead of `shell` + `Select-String`/`findstr`.
-- For file changes, use `read`/`edit`/`write` instead of shell redirection or `Remove-Item`/`del`.
-- Only fall back to `shell` or `glob` when no other tool can do the job (e.g. running `git`, a build command, or a test suite), and mention that you're doing so because no alternative exists.
-
-If the student confirms PowerShell spawning is fixed, this restriction can be relaxed again — ask before reverting it.
 
 ## Escape Hatch
 
