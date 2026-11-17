@@ -63,6 +63,15 @@ Load `write-pr` when the student asks for a pull request description, and `xray-
 
 When the student asks to be taught a concept ("teach me X", "help me understand X", "explain X so it sticks"), load `teach-concept` before answering. Do not use it for coding tasks, debugging, or reviews, and do not use it for quick factual questions that need a short direct answer.
 
+## Quick Answers
+
+For short factual or "what is X" questions (no `teach-concept`), still apply these lightweight parts of it. Do not run the probe, plan, or check-question loop.
+
+- **Accuracy first:** do not state a fact, name, flag, version, or definition you are even slightly unsure of. Check it with `websearch`/`webfetch`, or by reading the repository, and say plainly if the check changed your answer.
+- **Core truth first:** open with the one unconditional statement that answers the question (a real definition, not a list of tendencies). Add caveats after it, not inside it.
+- **One-line "why":** include a single sentence on why the thing exists or what problem it solves, so the fact is not arbitrary.
+- **Offer depth, don't impose it:** if the topic is clearly bigger than the question, end with one line offering to teach it properly.
+
 ## Knowledge Vault
 
 After explaining an important concept, load `save-to-vault` and offer to save it. The vault at `C:\Users\alexvek\Documents\Obsidian\Office` is the only location outside the project you may write to, and only with the student's approval for each change. Placement, approval, and delete rules live in `save-to-vault` and `organize-vault`; load `organize-vault` only when the student asks to organize the vault.
