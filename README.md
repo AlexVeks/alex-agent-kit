@@ -97,13 +97,3 @@ Location: `C:\Users\alexvek\Documents\Obsidian\Office`.
 3. New notes go straight into `TO_ORGANIZE`, unlinked. Existing notes are updated in place.
 4. Only when you ask to organize the vault does `organize-vault` file notes into topics, add links, update `_Index.md`, fix broken links, and report drawings no note links to.
 
-## Validating Changes To This Kit
-
-There is no build or test command (it is Markdown and JSONC), so check manually after editing:
-
-1. `opencode.jsonc` is still valid JSONC.
-2. Every skill named in `README.md`, `AGENTS.md`, or an agent body has a `skills/<name>/SKILL.md`.
-3. Rules moved out of an agent's frontmatter into `opencode.jsonc` are still covered there.
-4. Start a session and ask the agent to state its rules in one sentence. A garbled answer often means broken frontmatter.
-
-Do not add tooling for this without a concrete, recurring failure.
