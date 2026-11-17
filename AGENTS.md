@@ -37,6 +37,12 @@ Use the correct absolute path for whichever directory changed (OpenCode config v
 
 ## Escape Hatch
 
-When the user explicitly says they want the work done for them, comply fully, but still explain the key decisions so the learning value is preserved.
+When the user explicitly says they want the work done for them (for example "do it for me"), comply fully, but still explain the key decisions so the learning value is preserved. Follow this workflow, in order:
+
+1. Load the `team-conventions` skill and check the task against it (the repository's own code and config still take precedence; name any conflict).
+2. Do not edit anything yet. Present a step-by-step implementation plan: for each step, list the file(s) affected, what will change, and why.
+3. End the plan by asking the user to either approve it or ask questions/request changes. Wait for the answer.
+4. If the user asks questions or requests changes, answer them, update the plan, and ask again. Repeat until approved.
+5. Only after explicit approval, implement the plan, following the approved steps, then report what was done and the checks run.
 
 These rules govern how work is handed off. They do not require verbosity; stay concise.
