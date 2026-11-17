@@ -1,80 +1,109 @@
 # OpenCode Learner-First Configuration
 
-This installation is configured so AI acts as a tutor, planner, debugger, reviewer, and testing coach, while you write the production code yourself.
+This setup makes the AI act as a tutor, planner, debugger, reviewer, and testing coach. **You write the production code; the AI guides you.**
 
-## Installed Layout
+## The Big Picture
+
+```text
+You ──► mentor (default agent) ──► loads a skill that matches your task
+              │                         │
+              │                         └─ skills give step-by-step procedures
+              └─► scout (subagent) for broad "where is X?" searches (read-only)
+
+AGENTS.md ........ global rules every agent obeys
+opencode.jsonc ... default agent + permissions every agent obeys
+```
+
+Three layers, each with one job:
+
+| Layer | File(s) | Job |
+|---|---|---|
+| Rules | `AGENTS.md` | What no agent may do (e.g. write your code unasked, run git for config repos). |
+| Persona | `agents/mentor.md`, `agents/scout.md` | Who answers you and how. |
+| Procedures | `skills/*/SKILL.md` | Step-by-step recipes, loaded only when the task matches. |
+
+## Layout
 
 ```text
 ~/.config/opencode/
-  AGENTS.md                        Global rules applied to every agent
-  opencode.jsonc                   Selects mentor as the default agent
+  AGENTS.md                  Global rules for every agent
+  opencode.jsonc             Default agent (mentor) and shared permissions
   agents/
-    mentor.md                      Learner-first primary agent; also maintains the Obsidian vault
-    scout.md                       Read-only search subagent (Haiku); mentor verifies its reports
+    mentor.md                Primary agent. Teaches, reviews, maintains the vault
+    scout.md                 Read-only search subagent (Haiku). Mentor verifies its reports
   skills/
-    plan-with-me/SKILL.md          Small, student-owned plans
-    learn-by-doing/SKILL.md        Guided implementation, one step at a time
-    debug-with-me/SKILL.md         Evidence-led debugging
-    review-my-work/SKILL.md        Findings and hints, no rewrites
-    verify-my-work/SKILL.md        Choosing and interpreting real proof
-    teach-concept/SKILL.md         "Teach me X": probe, plan, teach concepts until they click
-    save-to-vault/SKILL.md         Approved concept notes and vault organization
-    organize-vault/SKILL.md        Drains the TO_ORGANIZE inbox, fixes broken links
-    team-conventions/SKILL.md      Reference coding standard for Java/Spring, TS/JS, React, Postgres, MongoDB
+    -- Coding workflow --
+    plan-with-me/            Turn an idea into a small plan
+    learn-by-doing/          Build something one small step at a time
+    debug-with-me/           Evidence-led debugging
+    review-my-work/          Review your code: findings + one next action
+    verify-my-work/          Choose and run checks that prove behavior
+    team-conventions/        Reference standard (Java/Spring, TS/JS, React, Postgres, MongoDB)
+    -- Learning and notes --
+    teach-concept/           "Teach me X" so it clicks
+    save-to-vault/           Save approved concept notes to Obsidian
+    organize-vault/          Empty the TO_ORGANIZE inbox, fix broken links
+    draw-diagram/            Propose Excalidraw drawings for concepts
+    -- Team tasks --
+    write-pr/                PR title and description with a Status checklist
+    xray-security-scan/      JFrog Xray scan, Critical/High findings only
 ```
 
-These are the exact paths OpenCode discovers automatically. No activation step is required.
+Skills are discovered automatically; there is nothing to activate.
 
-## Usage
+## Typical Flow
 
-`mentor` is the default for sessions without an existing agent selection. Existing sessions keep their selected agent; select `mentor` in the agent picker when needed.
+1. **Describe your task.** The mentor picks the matching skill. To force one, name it: "use `debug-with-me`".
+2. **Not sure where to start?** `plan-with-me`. **Know what to build?** `learn-by-doing`. **Something broke?** `debug-with-me`.
+3. **You write the next small change yourself.**
+4. **`review-my-work`** reads your code and gives findings plus one *Next action*.
+5. **`verify-my-work`** runs checks and tells you what a pass does and does not prove.
+6. **`write-pr`** drafts the PR when you are done.
 
-Skills load on demand; just describe the task and the agent picks the matching one. To force one, name it: "use `debug-with-me`".
+Review vs. verify: review *reads* code, verify *runs* checks.
 
-## How Your Learning Is Protected
+For concepts: `teach-concept` explains it, then the mentor offers `save-to-vault` to keep a note (and `draw-diagram` if a picture helps).
 
-`AGENTS.md` sets the behavior for all agents. Permissions enforce it, because prose alone is not a guarantee. The baseline below lives in `opencode.jsonc`'s top-level `permissions` and applies to every agent, including the hidden built-ins:
+Ask for a full solution only when you want a worked example; the mentor will explain the key decisions and give a follow-up exercise.
+
+## Conventions
+
+Whenever the stack is Java/Spring, TS/JS, React, PostgreSQL, or MongoDB, the mentor loads `team-conventions` while planning, guiding, reviewing, or verifying. This rule lives once, in `agents/mentor.md`; skills just say "check conventions". The repository's own code and config win over `team-conventions`, and conflicts are reported, not silently resolved.
+
+## Permissions
+
+Prose alone is not a guarantee, so permissions enforce the behavior. Shared rules live in `opencode.jsonc` (top-level `permissions`); agent files list only what differs. The last matching rule wins.
 
 | Permission | Value | Effect |
 |---|---|---|
-| `read`, `glob`, `grep` | Built-in defaults | Ordinary inspection is allowed; `.env` and `.env.*` reads ask, except `.env.example`. |
-| `edit` | `ask` | Edit, write, and patch tools request approval. |
-| `subagent` | `deny` | No agent can launch child agents. |
-| `shell` | `ask`, selected commands allowed | `git status/diff/log/branch/show/grep/ls-files`, plus `ls`, `head`, `Select-Object`, `Select-String`, are allowed; `rm` is denied. Other commands ask. |
+| `read`, `glob`, `grep` | Built-in defaults | Inspection allowed; `.env` and `.env.*` ask, except `.env.example`. |
+| `edit` | `ask` | Every edit/write/patch needs approval. |
+| `subagent` | `deny` | No child agents, except the mentor may call `scout`. |
+| `shell` | `ask` | Safe read-only commands allowed (`git status/diff/log/branch/show/grep/ls-files`, `ls`, `head`, `Select-Object`, `Select-String`); `rm` denied. |
 
-`agents/mentor.md` only lists what differs from that baseline:
+Per agent:
 
-- `external_directory` asks everywhere except the vault (allowed there, edits still ask).
-- `git push` is denied; you run git commands yourself.
-- A scoped `Remove-Item *TO_ORGANIZE*` is allowed for inbox cleanup.
+- **mentor**: `external_directory` asks, except the vault (allowed; edits still ask). `git push` denied. `Remove-Item *TO_ORGANIZE*` allowed for inbox cleanup.
+- **scout**: edit, shell, subagents, and external directories all denied. It can only read the project.
 
-See `agents/mentor.md` for the exact rules.
-
-These use native OpenCode V2 permission rules. The last matching rule wins. Choosing **Allow always** can save a project-scoped approval for later requests; use **Allow once** when you want each operation reviewed.
-
-The built-in `build` agent keeps its normal permissions for implementation work. `AGENTS.md` includes an escape hatch: explicitly ask for the work to be done for you. Tool permissions still apply.
+These are native OpenCode V2 permission rules. **Allow always** saves a project-scoped approval; use **Allow once** to review each operation. The built-in `build` agent is hidden; ask explicitly for work to be done for you if you want that (tool permissions still apply).
 
 ## Knowledge Vault
 
-The mentor and `save-to-vault` use `C:\Users\alexvek\Documents\Obsidian\Office`. The skill searches for existing notes, proposes the exact changes and related links, and waits for approval before writing. The vault directory exception permits access, not automatic edits.
+Location: `C:\Users\alexvek\Documents\Obsidian\Office`.
 
-The mentor creates brand-new notes directly in `TO_ORGANIZE`, unlinked, by default — no topic-folder search, no `related` links, no `_Index.md` update at creation time. Updating an existing note still happens in place as normal. Finding the right home, cross-linking, and updating `_Index.md` only happens when you explicitly ask to organize the vault, which loads `organize-vault` to drain `TO_ORGANIZE` and sweep for broken links.
+1. After an important explanation, the mentor offers `save-to-vault`.
+2. It shows the exact change and waits for your approval. Nothing is written without it.
+3. New notes go straight into `TO_ORGANIZE`, unlinked. Existing notes are updated in place.
+4. Only when you ask to organize the vault does `organize-vault` file notes into topics, add links, update `_Index.md`, fix broken links, and report drawings no note links to.
 
-## Validating The Kit
+## Validating Changes To This Kit
 
-After editing `opencode.jsonc`, any `agents/*.md`, or any `skills/*/SKILL.md`, check before trusting it:
+There is no build or test command (it is Markdown and JSONC), so check manually after editing:
 
-1. `opencode.jsonc` must stay valid JSONC (balanced braces, no trailing comma OpenCode's parser rejects) — reread the file after editing.
-2. Every skill named in `README.md`, `AGENTS.md`, or an agent's body (e.g. `plan-with-me`, `team-conventions`) must have a matching `skills/<name>/SKILL.md` on disk — grep the name if unsure.
-3. Every permission rule removed from an agent's frontmatter because it moved to `opencode.jsonc`'s top-level `permissions` must still be covered there — diff the two files if you change either.
-4. Start a session and ask the agent to state its own rules in one sentence; a garbled or missing frontmatter block usually surfaces as the agent ignoring its constraints.
+1. `opencode.jsonc` is still valid JSONC.
+2. Every skill named in `README.md`, `AGENTS.md`, or an agent body has a `skills/<name>/SKILL.md`.
+3. Rules moved out of an agent's frontmatter into `opencode.jsonc` are still covered there.
+4. Start a session and ask the agent to state its rules in one sentence. A garbled answer often means broken frontmatter.
 
-There's no build or test command for this repo (it's Markdown and JSONC), so this is a manual checklist, not an automated one — don't add tooling for it without a concrete recurring failure to justify it.
-
-## Working Agreement
-
-1. Start with `plan-with-me`, `debug-with-me`, or `learn-by-doing`.
-2. Write the next small change yourself.
-3. Ask `review-my-work` for findings, explanations, or a hint.
-4. Use `verify-my-work` to pick and run the smallest useful proof.
-5. Request a full solution only when you want a worked example, then read the explanation.
+Do not add tooling for this without a concrete, recurring failure.

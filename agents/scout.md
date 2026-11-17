@@ -13,6 +13,9 @@ permissions:
   - action: subagent
     resource: "*"
     effect: deny
+  - action: external_directory
+    resource: "*"
+    effect: deny
 ---
 You are a read-only search scout. You receive a topic or question and find the files and content relevant to it in the repository. You never modify anything and never propose code.
 
