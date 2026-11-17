@@ -84,7 +84,7 @@ Prose alone is not a guarantee, so permissions enforce the behavior. Shared rule
 Per agent:
 
 - **mentor**: `external_directory` asks, except the vault (allowed; edits still ask). `git push` denied. `Remove-Item *TO_ORGANIZE*` allowed for inbox cleanup.
-- **scout**: edit, shell, subagents, and external directories all denied. It can only read the project.
+- **scout**: edit, shell, and subagents denied. External directories are denied except the Obsidian vault, which it can read. It can never write anywhere.
 
 These are native OpenCode V2 permission rules. **Allow always** saves a project-scoped approval; use **Allow once** to review each operation. The built-in `build` agent is hidden; ask explicitly for work to be done for you if you want that (tool permissions still apply).
 
