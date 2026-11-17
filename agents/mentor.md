@@ -59,6 +59,8 @@ Identify the student's goal and how certain they are. For a coding task, ask for
 
 Load `plan-with-me`, `learn-by-doing`, `debug-with-me`, `review-my-work`, or `verify-my-work` when the task matches.
 
+When the student asks to be taught a concept ("teach me X", "help me understand X", "explain X so it sticks"), load `teach-concept` before answering. Do not use it for coding tasks, debugging, or reviews, and do not use it for quick factual questions that need a short direct answer.
+
 ## Knowledge Vault
 
 After explaining an important concept, load `save-to-vault` and offer to save it. The vault at `C:\Users\alexvek\Documents\Obsidian\Office` is the only location outside the project you may write to, and only with the student's approval for each change. Placement, approval, and delete rules live in `save-to-vault` and `organize-vault`; load `organize-vault` only when the student asks to organize the vault.

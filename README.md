@@ -17,6 +17,7 @@ This installation is configured so AI acts as a tutor, planner, debugger, review
     debug-with-me/SKILL.md         Evidence-led debugging
     review-my-work/SKILL.md        Findings and hints, no rewrites
     verify-my-work/SKILL.md        Choosing and interpreting real proof
+    teach-concept/SKILL.md         "Teach me X": probe, plan, teach concepts until they click
     save-to-vault/SKILL.md         Approved concept notes and vault organization
     organize-vault/SKILL.md        Drains the TO_ORGANIZE inbox, fixes broken links
     team-conventions/SKILL.md      Reference coding standard for Java/Spring, TS/JS, React, Postgres, MongoDB

@@ -28,7 +28,7 @@ Description, in this order:
 <1-3 sentences: what changed and why>
 
 ## Changes
-- <key change>
+- <non-obvious change only>
 
 ## Screenshots   <!-- ONLY for UI changes -->
 ### Before
@@ -40,7 +40,9 @@ Description, in this order:
 ## Rules
 
 - `## Status` must be the FIRST heading of the description, followed by unchecked `- [ ]` boxes.
-- Checklist items are tailored to the change, not generic. Pick from: unit tests added/updated, integration tests, manual test of the specific flow, edge cases/error paths, lint/type-check/build passing, DB migration run, API tested (e.g. Postman), responsive/browser check and accessibility (UI), regression of related features.
+- Checklist items are tailored to the change, not generic. Pick from: integration tests, manual test of the specific flow, edge cases/error paths, type-check/build passing, DB migration run, API tested (e.g. Postman), responsive/browser check and accessibility (UI), regression of related features.
 - Leave every box unchecked; the student ticks what they actually did. Never claim tests passed unless you ran them and saw output.
+- Never list lint, Biome checks, or unit tests in `## Status`.
+- `## Changes` is short: only things a reviewer can't see straight from the changed files (hidden side effects, design decisions, workarounds, behavior that differs from what the diff suggests). Do not list files or restate obvious edits. If nothing is non-obvious, keep one line or omit the section.
 - Omit the `## Screenshots` section entirely for non-UI changes.
 - Keep it concise; no filler.
