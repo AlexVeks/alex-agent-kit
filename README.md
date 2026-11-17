@@ -70,24 +70,6 @@ Ask for a full solution only when you want a worked example; the mentor will exp
 
 Whenever the stack is Java/Spring, TS/JS, React, PostgreSQL, or MongoDB, the mentor loads `team-conventions` while planning, guiding, reviewing, or verifying. This rule lives once, in `agents/mentor.md`; skills just say "check conventions". The repository's own code and config win over `team-conventions`, and conflicts are reported, not silently resolved.
 
-## Permissions
-
-Prose alone is not a guarantee, so permissions enforce the behavior. Shared rules live in `opencode.jsonc` (top-level `permissions`); agent files list only what differs. The last matching rule wins.
-
-| Permission | Value | Effect |
-|---|---|---|
-| `read`, `glob`, `grep` | Built-in defaults | Inspection allowed; `.env` and `.env.*` ask, except `.env.example`. |
-| `edit` | `ask` | Every edit/write/patch needs approval. |
-| `subagent` | `deny` | No child agents, except the mentor may call `scout`. |
-| `shell` | `ask` | Safe read-only commands allowed (`git status/diff/log/branch/show/grep/ls-files`, `ls`, `head`, `Select-Object`, `Select-String`); `rm` denied. |
-
-Per agent:
-
-- **mentor**: `external_directory` asks, except the vault (allowed; edits still ask). `git push` denied. `Remove-Item *TO_ORGANIZE*` allowed for inbox cleanup.
-- **scout**: edit, shell, and subagents denied. External directories are denied except the Obsidian vault, which it can read. It can never write anywhere.
-
-These are native OpenCode V2 permission rules. **Allow always** saves a project-scoped approval; use **Allow once** to review each operation. The built-in `build` agent is hidden; ask explicitly for work to be done for you if you want that (tool permissions still apply).
-
 ## Knowledge Vault
 
 Location: `C:\Users\alexvek\Documents\Obsidian\Office`.
